@@ -1,0 +1,109 @@
+@import 'https://fonts.googleapis.com/css?family=Montserrat:300, 400, 700&display=swap';
+body {
+    font-family: Montserrat, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(60deg, #2c072c 0%, #87a1bc 100%);
+	opacity: 0.9;
+	z-index: -1;
+}
+
+h3 {
+	font-size: 4rem;
+	font-weight: 300;
+	color: black;
+	margin-bottom: 120px;
+	text-transform: uppercase;
+	letter-spacing: 0.2rem;
+	text-align: center;
+}
+h3 span {
+	color: rgb(220, 20, 103);
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+input[type="file"] {
+    padding: 10px;
+    border: 2px solid rgb(220, 20, 103); /* Pink outline */
+    border-radius: 0; /* Square corners */
+    background: white; /* White background */
+    color: rgb(220, 20, 103); /* Matching text color */
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 8px 12px;
+    background: white; /* White background */
+    color: rgb(220, 20, 103);
+    border: 2px solid rgb(220, 20, 103);
+    border-radius: 0; /* Square corners */
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: rgb(220, 20, 103);
+    color: white;
+}
+
+/* Updated button styling */
+button {
+    padding: 10px 20px;
+    background: white; /* White background */
+    color: rgb(220, 20, 103); /* Matching text color */
+    border: 2px solid rgb(220, 20, 103); /* Pink outline */
+    border-radius: 0; /* Square corners */
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: rgb(220, 20, 103);
+    color: white;
+}
+
+
+
+button {
+    padding: 10px 20px;
+    background: rgb(220, 20, 103);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: rgb(220, 20, 103);
+}
+
+.result {
+    margin-top: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
