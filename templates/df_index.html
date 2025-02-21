@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detector</title>
+    <link rel="stylesheet" href="../static/css/df_style_2.css">
+</head>
+<body>
+    <div class="container">
+        <h3>DEEPFAKE <span>IMAGE</span> DETECTOR</h3>
+        <form action="/df/predict_df" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <b><button type="submit">INITIATE CYBER SCAN</button></b>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    document.querySelector("form").onsubmit = async function (e) {
+        e.preventDefault();
+        
+        let formData = new FormData(this);
+        let response = await fetch("/df/predict_df", {
+            method: "POST",
+            body: formData
+        });
+
+        let data = await response.json();
+        document.getElementById("result").innerText = "PREDICTION: " + data.prediction;
+    };
+</script>
