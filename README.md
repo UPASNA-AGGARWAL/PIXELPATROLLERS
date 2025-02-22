@@ -1,5 +1,7 @@
 Pixel Patrollers – AI Eyes on Every Pixel, Patrolling to Protect Your Digital World.
 
+Demo Video: https://drive.google.com/file/d/1t6HHqLqZcwKRvO7b4-Ajp4TjVRxVyHvR/view?usp=sharing
+
 About the Project
 
 With the rise of cyber threats, online harassment, and misinformation, digital safety has become more important than ever. Pixel Patrollers is an AI-driven solution designed to detect cyberbullying, deepfake content, and misinformation using cutting-edge machine learning models. Our goal is to provide a safer and more trustworthy online environment for individuals and businesses.
