@@ -38,7 +38,9 @@ Google Colab for AI model training
 ## 📷 Screenshots
 
 #### **Home Page**
-![Home Page](https://your-image-url.com/homepage.png)
+(https://github.com/UPASNA-AGGARWAL/PIXELPATROLLERS/blob/main/IMAGES/WhatsApp%20Image%202025-02-22%20at%201.27.20%20PM.jpeg)
+(https://github.com/UPASNA-AGGARWAL/PIXELPATROLLERS/blob/7adb4181722025bd9c56ccdbc168799e691fe666/IMAGES/WhatsApp%20Image%202025-02-22%20at%201.27.37%20PM.jpeg)
+
 
 #### **Cyberbullying Detection**
 ![Cyberbullying Detection](https://your-image-url.com/cyberbullying.png)
