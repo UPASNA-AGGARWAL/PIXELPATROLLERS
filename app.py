@@ -94,6 +94,8 @@ def predict_image():
     return render_template('cb_index.html', prediction=None, image_prediction=None, image_path=None, extracted_text=None)
 
 
+# ------------------------------------ DEEPFAKE MODEL ------------------------------------
+
 image_dimensions = {'height':256, 'width':256, 'channels':3}
 
 class Classifier:
@@ -150,13 +152,27 @@ class Meso4(Classifier):
         y = Dense(1, activation = 'sigmoid')(y)
 
         return Model(inputs = x, outputs = y)
+        
+def detect_faces(image_path):
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    if not os.path.exists(image_path):
+        return [], None
+    image = cv2.imread(image_path)
+    if image is None:
+        return [], None
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+    return faces, image
     
-def preprocess_image(image_path):
-    img = cv2.imread(image_path)
-    img = cv2.resize(img, (256, 256))  
-    img = img / 255.0  
-    img = np.expand_dims(img, axis=0) 
-    return img
+def preprocess_image(face):
+    try:
+        face = cv2.resize(face, (256, 256))  
+        face = face / 255.0  
+        face = np.expand_dims(face, axis=0)  
+        return face
+    except Exception as e:
+        print("Error preprocessing image:", e)
+        return None
 
 model_df = Meso4()
 model_df.load('model/Meso4_DF.h5')
@@ -175,19 +191,33 @@ def dfpredict():
     if file.filename == '':
         return jsonify({'error': 'No selected file'})
 
-    file_path = os.path.join("static/uploads/", file.filename)
+    file_path = os.path.join("static/uploads", file.filename)
+    os.makedirs("static/uploads", exist_ok=True)  
     file.save(file_path)
 
-    image = preprocess_image(file_path)
-    prediction = model_df.predict(image)[0][0]  # Adjust based on your model's output
+    faces, image = detect_faces(file_path)
+    if image is None:
+        return jsonify({'error': 'Invalid image file. Please upload a valid image.'})
 
-    rounded_pred = round(prediction)  # Convert probability to binary classification
-    if rounded_pred == 1:
-        result = "Real"
-    else:
-        result = "Deepfake"
+    if len(faces) == 0:
+        return jsonify({'error': 'No face detected'})
 
-    return jsonify({'filename': file.filename, 'prediction': result})
+    predictions = []
+    for idx, (x, y, w, h) in enumerate(faces):
+        x  = max(x - 50, 0)  
+        y  = max(y - 50, 0)  
+        w  = w + 2 * 50
+        h = h + 2 * 50
+        face = image[y:y+h, x:x+w]
+        face_path = f"static/faces/face_{idx}.jpg"
+        cv2.imwrite(face_path, face) 
+        face = preprocess_image(face)
+        prediction = model.predict(face)[0][0]
+        result = "Real" if round(prediction) == 1 else "Deepfake"
+        predictions.append({'face_location': (int(x), int(y), int(w), int(h)), 'prediction': result, 'face_url': face_path})
+
+    image_url = f"/static/uploads/{file.filename}"
+    return jsonify({'filename': file.filename, 'predictions': predictions, 'image_url': image_url})
 
 if __name__ == '__main__':
     app.run(debug=True)
