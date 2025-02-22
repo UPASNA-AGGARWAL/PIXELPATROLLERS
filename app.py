@@ -229,7 +229,7 @@ def dfpredict():
         face_path = f"static/faces/face_{idx}.jpg"
         cv2.imwrite(face_path, face) 
         face = preprocess_image(face)
-        prediction = model.predict(face)[0][0]
+        prediction = model_df.predict(face)[0][0]
         result = "Real" if round(prediction) == 1 else "Deepfake"
         predictions.append({'face_location': (int(x), int(y), int(w), int(h)), 'prediction': result, 'face_url': face_path})
 
