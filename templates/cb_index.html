@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,42 +138,87 @@
 </head>
 <body>
 
+    <style>
+        .result h4 {
+            font-weight: bold;
+            color: white;
+            font-size: 20px;
+        }
+    
+        .result p.entered-text {
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+        }
+    
+        .result p.prediction-text.bullying {
+            color: red;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    
+        .result p.prediction-text.non-bullying {
+            color: rgb(91, 235, 91);
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+    
     <div class="container">
         <div class="static-title">CYBER<span>BULLYING </span>DETECTION</div>
         <form action="{{ url_for('predict')}}" method="POST">
             <div class="form-group">
-                <textarea name="text" class="form-control" rows="4" placeholder="Enter text to analyze..."></textarea>
+                <textarea name="text" class="form-control" rows="4" placeholder="Enter text to analyze...">{{ request.form.get('text', '') }}</textarea>
             </div>
             <button type="submit" class="btn btn-success btn-block">INITIATE CYBER SCAN</button>
-            {% if prediction is not none %}
-            <div class="result {% if prediction == 1 %}bullying{% else %}non-bullying{% endif %}">
-                {% if prediction == 1 %}
-                    Bullying
-                {% else %}
-                    Non-Bullying
-                {% endif %}
-            </div>
-            {% endif %}
         </form>
+    
+        {% if prediction is not none %}
+        <div class="result {% if prediction == 1 %}bullying{% else %}non-bullying{% endif %}">
+            <h4>Analyzed Text:</h4>
+            <p class="entered-text">{{ request.form.get('text', '') }}</p>
+            <h4>Prediction:</h4>
+            <p class="prediction-text {% if prediction == 1 %}bullying{% else %}non-bullying{% endif %}">
+                {% if prediction == 1 %}Bullying{% else %}Non-Bullying{% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+    
+    
+    
         
         
     </div>
     <div class="container">
-        <form action = "/cb/predict_image" method = "post" enctype="multipart/form-data"> 
-            <input type="file" name="image" /> 
-            <input type = "submit" value="INITIATE CYBER SCAN"> 
-            {% if image_prediction is not none %}
-            <div class="result {% if image_prediction == "1" %}bullying{% else %}non-bullying{% endif %}">
-                {% if image_prediction == "1" %}
-                    Bullying
-                {% else %}
-                    Non-Bullying
-                {% endif %}
-            </div>
+        <form action="/cb/predict_image" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" required />
+            <input type="submit" value="INITIATE CYBER SCAN">
+    
+            {% if image_path %}
+                <h4>Uploaded Image:</h4>
+                <img src="{{ image_path }}" alt="Uploaded Image"
+                     style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
             {% endif %}
-        </form> 
+    
+            {% if extracted_text %}
+                <h4>Extracted Text:</h4>
+                <p>{{ extracted_text }}</p>
+            {% endif %}
+    
+            {% if image_prediction is not none %}
+                <h4>Prediction:</h4>
+                <div class="result {% if image_prediction == '1' %}bullying{% else %}non-bullying{% endif %}">
+                    {% if image_prediction == '1' %}
+                        Bullying
+                    {% else %}
+                        Non-Bullying
+                    {% endif %}
+                </div>
+            {% endif %}
+        </form>
     </div>
-
+    
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
