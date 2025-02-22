@@ -141,13 +141,13 @@
     <style>
         .result h4 {
             font-weight: bold;
-            color: white;
+            color: rgb(15, 14, 14);
             font-size: 20px;
         }
     
         .result p.entered-text {
             font-weight: bold;
-            color: rgb(0, 0, 0);
+            color: rgb(69, 71, 210);
             font-size: 18px;
         }
     
@@ -158,7 +158,7 @@
         }
     
         .result p.prediction-text.non-bullying {
-            color: rgb(91, 235, 91);
+            color: rgb(17, 156, 17);
             font-weight: bold;
             font-size: 18px;
         }
@@ -171,7 +171,7 @@
                 <textarea name="text" class="form-control" rows="4" placeholder="Enter text to analyze...">{{ request.form.get('text', '') }}</textarea>
             </div>
             <button type="submit" class="btn btn-success btn-block">INITIATE CYBER SCAN</button>
-        </form>
+       
     
         {% if prediction is not none %}
         <div class="result {% if prediction == 1 %}bullying{% else %}non-bullying{% endif %}">
@@ -183,6 +183,7 @@
             </p>
         </div>
         {% endif %}
+    </form>
     </div>
     
     
@@ -201,10 +202,7 @@
                      style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
             {% endif %}
     
-            {% if extracted_text %}
-                <h4>Extracted Text:</h4>
-                <p>{{ extracted_text }}</p>
-            {% endif %}
+            
     
             {% if image_prediction is not none %}
                 <h4>Prediction:</h4>
