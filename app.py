@@ -153,6 +153,23 @@ class Meso4(Classifier):
 
         return Model(inputs = x, outputs = y)
         
+def clear_uploads():
+    uploads_folder = "static/uploads"
+    if not os.path.exists(uploads_folder):
+        os.makedirs(uploads_folder)
+    for file in os.listdir(uploads_folder):
+        file_path = os.path.join(uploads_folder, file)
+        try:
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+        except Exception as e:
+            print(f"Error deleting {file_path}: {e}")
+    try:
+        shutil.rmtree(uploads_folder)
+        os.makedirs(uploads_folder)
+    except Exception as e:
+        print(f"Error clearing uploads folder: {e}")
+        
 def detect_faces(image_path):
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     if not os.path.exists(image_path):
