@@ -12,13 +12,9 @@ Cyberbullying Detection – AI analyzes text to identify harmful or abusive lang
 
 Deepfake Detection – Detects manipulated images to prevent misinformation.
 
-Misinformation Detection – (Upcoming) Uses Gemini API to verify content authenticity.
-
-Multilingual Support – Detects harmful content in English and Hinglish (expanding soon).
-
-Voice & Audio Analysis – (Future) Identifies deepfake voices and harmful audio content.
 
 Business Integration – Platforms like Instagram and social networks can embed our tool for automated moderation.
+
 
 🖥️ Tech Stack
 
