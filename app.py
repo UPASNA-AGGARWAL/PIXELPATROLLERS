@@ -192,7 +192,7 @@ def preprocess_image(face):
         return None
 
 model_df = Meso4()
-model_df.load('model/Meso4_DF.h5')
+model_df.load('model/model.h5')
 
 @app.route('/df')
 def dfhome():
