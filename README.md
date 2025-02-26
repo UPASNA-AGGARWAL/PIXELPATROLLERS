@@ -1,6 +1,6 @@
 Pixel Patrollers – AI Eyes on Every Pixel, Patrolling to Protect Your Digital World.
 
-Demo Video: https://drive.google.com/file/d/1t6HHqLqZcwKRvO7b4-Ajp4TjVRxVyHvR/view?usp=sharing
+Demo Video: https://youtu.be/m9fEF81ndqU
 
 About the Project
 
